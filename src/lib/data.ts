@@ -28,14 +28,14 @@ export const heroStats = [
 export const coreProject = {
   badge: "CORE PROJECT",
   title: "TrackBoost",
-  desc: "AI-powered ads-optimization platform for media buyers and agencies serving clients including Pepsi and Starbucks. Co-built two products from scratch in a team of 8 engineers + QA.",
+  desc: "AI-powered ads-optimization platform for media buyers, affiliates and agencies serving clients including Pepsi and Starbucks. Co-built two products from scratch in a team of 8 engineers + QA.",
   archTitle: "System Architecture",
   arch: [
-    "NestJS backend · 37+ modules · polyglot persistence",
-    "Multi-LLM routing — Anthropic Claude, GPT-4o, Gemini",
-    "Autonomous AI campaign-launching agent via tool calling",
+    "Autonomous AI campaign-launching agent (OpenAI creatives)",
+    "LLM-based campaign optimization & rules engine",
+    "Scheduled stats layer over a 70 GB MongoDB store via BullMQ",
   ],
-  chips: ["NODE.JS", "NESTJS", "CLAUDE", "MONGODB", "AWS"],
+  chips: ["NODE.JS", "NESTJS", "OPENAI", "CLAUDE", "MONGODB", "AWS"],
 };
 
 export const cta = {
@@ -70,8 +70,8 @@ export const techWeb = [
 ];
 
 export const aboutBio = [
-  "I build <strong>backend systems that scale</strong> — real-time queues, AI pipelines, cloud infrastructure. Three years shipping production code at an AI SaaS used by 200+ media buyers serving brands like <strong>Pepsi</strong> and <strong>Starbucks</strong>, integrating <strong>LLMs</strong> before it was cool.",
-  "BSc in <strong>Intelligent Systems</strong> from TUKE, thesis on <strong>RAG pipelines</strong>. I've shipped an autonomous campaign-launching agent and a Claude-powered content pipeline to production. Open to backend or full-stack roles, remote or hybrid, on B2B or employment.",
+  "<strong>Full-Stack Developer</strong> with 3 years of production experience building AI-powered SaaS platforms end-to-end — from greenfield architecture to scaled features used by <strong>200+ media buyers</strong> and agencies serving brands such as <strong>Pepsi</strong> and <strong>Starbucks</strong>.",
+  "Backend-leaning generalist across <strong>Node.js, NestJS, Express</strong> and Python, with strong React/Redux on the frontend and confident handling of MongoDB, PostgreSQL, Redis, BullMQ and AWS/GCP. Shipped multiple <strong>LLM-driven features</strong> in production — an autonomous campaign-launching agent and a Claude-powered content pipeline. Comfortable owning a feature from spec through deployment.",
 ];
 
 export const terminalLog: { ts: string; msg: string; hi?: boolean }[] = [
@@ -83,11 +83,11 @@ export const terminalLog: { ts: string; msg: string; hi?: boolean }[] = [
   },
   {
     ts: "[09:41:24]",
-    msg: "ARCHITECTED: NestJS backend · 37+ modules · polyglot persistence",
+    msg: "DEPLOYED: n8n + Claude Opus content pipeline (RSOC at scale)",
   },
   {
     ts: "[09:41:25]",
-    msg: "INTEGRATED: 10+ ad platforms — Facebook, TikTok, MGID, Taboola, Outbrain",
+    msg: "INTEGRATED: 9+ traffic sources — Facebook, TikTok, MGID, Taboola, Outbrain",
     hi: true,
   },
   {
@@ -104,65 +104,156 @@ export const terminalLog: { ts: string; msg: string; hi?: boolean }[] = [
 
 export const aboutFacts: [string, string][] = [
   ["LOCATION", "Kraków, Poland"],
-  ["FOCUS", "Full-Stack / Backend"],
-  ["STACK", "Node.js · NestJS · TypeScript"],
-  ["AI / LLM", "OpenAI · Anthropic · RAG"],
-  ["INFRA", "AWS · GCP · Docker · Redis"],
+  ["FOCUS", "Full-Stack · Backend-leaning"],
+  ["EXPERIENCE", "3 years · production SaaS"],
+  ["EDUCATION", "BSc Intelligent Systems · TUKE"],
   ["CONTRACT", "B2B (JDG) · Employment"],
-  ["LANGUAGES", "RU · UA · SK · EN"],
+  ["AVAILABILITY", "Remote / Hybrid"],
+  ["LANGUAGES", "RU · UA · SK (C1) · EN (B2)"],
 ];
 
-export const skillCards = [
-  { cat: "BACKEND", name: "NestJS / Node.js", pct: 92 },
-  { cat: "LANGUAGE", name: "TypeScript", pct: 90 },
-  { cat: "LANGUAGE", name: "Python", pct: 80 },
-  { cat: "DATABASE", name: "PostgreSQL", pct: 86 },
-  { cat: "DATABASE", name: "MongoDB", pct: 84 },
-  { cat: "QUEUE", name: "Redis / BullMQ", pct: 85 },
-  { cat: "AI", name: "LLM · RAG · Agents", pct: 86 },
-  { cat: "FRONTEND", name: "React / Redux", pct: 82 },
-  { cat: "CLOUD", name: "AWS / GCP", pct: 74 },
-  { cat: "DEVOPS", name: "Docker / CI", pct: 74 },
-  { cat: "BACKEND", name: "REST · WebSockets", pct: 85 },
-  { cat: "AUTOMATION", name: "n8n · OpenAI · Claude", pct: 83 },
+/** Technical skills grouped by category — straight from the resume. */
+export const skillGroups: { cat: string; items: string[] }[] = [
+  { cat: "LANGUAGES", items: ["JavaScript", "TypeScript", "Python"] },
+  {
+    cat: "BACKEND",
+    items: [
+      "Node.js",
+      "NestJS",
+      "Express",
+      "Django",
+      "REST APIs",
+      "Microservices",
+      "BullMQ",
+      "WebSockets",
+    ],
+  },
+  {
+    cat: "FRONTEND",
+    items: ["React", "Redux", "Astro", "React Native", "HTML", "CSS"],
+  },
+  {
+    cat: "DATABASES",
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
+  },
+  {
+    cat: "CLOUD & DEVOPS",
+    items: ["AWS", "GCP", "Docker", "CI/CD", "Linux", "VPS"],
+  },
+  {
+    cat: "AI & AUTOMATION",
+    items: [
+      "OpenAI API",
+      "Anthropic Claude",
+      "RAG",
+      "Vector DBs",
+      "Prompt Engineering",
+      "n8n",
+    ],
+  },
+  {
+    cat: "INTEGRATIONS",
+    items: [
+      "Facebook Ads",
+      "TikTok Ads",
+      "Instagram",
+      "YouTube",
+      "MGID",
+      "Taboola",
+      "Outbrain",
+      "Revcontent",
+      "Line",
+      "Tonic",
+      "Google APIs",
+      "PayPal",
+    ],
+  },
+  {
+    cat: "TESTING & TOOLS",
+    items: ["Jest", "Git", "GitHub", "Postman", "Agile/Scrum"],
+  },
 ];
 
 export const projects = [
   {
     num: "001",
-    title: "TrackBoost AI Platform",
-    desc: "Co-built the backend of an AI-powered ads-optimization SaaS — scheduled stats-collection layer, BullMQ queues pulling thousands of ads, OpenAI & Anthropic integrations, 9+ traffic-source integrations, multi-tenant architecture.",
-    chips: ["NestJS", "BullMQ", "Redis", "OpenAI", "PostgreSQL", "AWS"],
+    title: "Autonomous Ad Agent",
+    desc: "End-to-end campaign launcher for affiliate marketers: takes an offer + reference, generates images and headlines via OpenAI, assembles creatives, and pushes them live to traffic sources. Replaced hours of manual creative production per buyer.",
+    chips: ["OpenAI", "Node.js", "Agent", "BullMQ"],
   },
   {
     num: "002",
-    title: "Autonomous Ad Agent",
-    desc: "End-to-end campaign launcher: takes an offer + reference, generates images and headlines via OpenAI, assembles creatives, and pushes them live to traffic sources. Replaced hours of manual work per buyer.",
-    chips: ["OpenAI", "Node.js", "Agent", "BullMQ"],
+    title: "LLM Optimization Engine",
+    desc: "Campaign optimization engine that analyzes live performance against affiliate-marketing rules and recommends concrete actions — budget adjustments, pausing underperforming creatives, and generating new variations.",
+    chips: ["LLM", "NestJS", "Rules Engine"],
   },
   {
     num: "003",
     title: "Claude Content Pipeline",
-    desc: "n8n + Claude Opus pipeline auto-generating RSOC articles for Tonic at scale. Ran in production for months, producing multiple campaigns per day with zero manual writing.",
+    desc: "n8n + Claude Opus pipeline auto-generating RSOC articles for Tonic at scale. Ran in production for several months, producing multiple campaigns per day with zero manual writing.",
     chips: ["Claude API", "n8n", "Automation"],
   },
   {
     num: "004",
-    title: "Real-time Analytics",
-    desc: "Live dashboard aggregating a 70 GB MongoDB store and multiple SQL databases into real-time charts. Cut key dashboard load times from ~30s to near-instant on hot paths.",
+    title: "Real-time Analytics Dashboard",
+    desc: "Live dashboard with charts aggregating a 70 GB MongoDB store and multiple SQL databases across all integrated traffic sources and campaigns. Cut key dashboard load times from ~30s to near-instant.",
     chips: ["MongoDB", "Redis", "Charts", "Node.js"],
   },
   {
     num: "005",
-    title: "RAG Pipeline Research",
-    desc: "BSc thesis core — retrieval-augmented generation over a custom knowledge base. Vector-search retrieval combined with LLM generation, built into an IDE for working with LLMs.",
-    chips: ["Python", "RAG", "Vector DB", "LLM"],
+    title: "AI Creative Editor & CRM",
+    desc: "In-app AI creative editor to generate and refine ad images and copy, removing dependency on external design tools — plus an influencer-management system for agencies with talent CRM, campaign tracking and reporting.",
+    chips: ["OpenAI", "React", "NestJS"],
   },
   {
     num: "006",
-    title: "Freelance Client Builds",
-    desc: "End-to-end delivery for independent clients: booking sites, a dance-course registration platform, and a Telegram bot with full PayPal payment flow. Requirements to deployment.",
-    chips: ["React", "Astro", "PayPal", "React Native"],
+    title: "RAG Pipeline (BSc Thesis)",
+    desc: "Retrieval-augmented generation over a custom knowledge base — vector-search retrieval combined with LLM generation, built into an IDE for working with LLMs. Core technical contribution of the thesis.",
+    chips: ["Python", "RAG", "Vector DB", "LLM"],
+  },
+];
+
+/** Freelance / client work from the Upwork portfolio. */
+export const freelance: {
+  title: string;
+  role: string;
+  desc: string;
+  stack: string[];
+  links?: { label: string; href: string }[];
+  wip?: boolean;
+}[] = [
+  {
+    title: "Fitness Coach Website",
+    role: "Full site development",
+    desc: "Modern, high-converting website for a fitness coach — full-cycle UI/UX, responsive frontend, backend & integrations, contact / lead-generation forms and SEO. A clean, engaging presence supporting the coach's personal brand and growth.",
+    stack: ["React", "Node.js", "UI/UX", "Responsive", "SEO"],
+    links: [{ label: "stefit.sk", href: "https://stefit.sk" }],
+  },
+  {
+    title: "Dance Course Landing",
+    role: "Full-Stack · End-to-End",
+    desc: "Conversion-optimized landing page for a dance course — clear course presentation, emotional engagement and a simple flow from first visit to registration, with a data-collecting form wired to backend storage.",
+    stack: ["React", "API Integration", "Web Design"],
+    links: [{ label: "thesdds.com", href: "https://thesdds.com" }],
+  },
+  {
+    title: "Podiatry / Beauty Website",
+    role: "Full-Stack · End-to-End",
+    desc: "Modern website for a podiatry / beauty business focused on clear service presentation and building client trust — responsive frontend, organized service content and integrated contact / lead-generation forms.",
+    stack: ["React", "UI/UX", "API Integration", "SEO"],
+  },
+  {
+    title: "Course Signup Page",
+    role: "Full-Stack · End-to-End",
+    desc: "Fast, visually appealing signup page that makes registration effortless — an effective tool for promoting the client's course and managing registrations.",
+    stack: ["React", "API Integration", "Lead Gen"],
+  },
+  {
+    title: "Sales & Content Platform",
+    role: "Full-Stack · End-to-End",
+    desc: "Platform for managing sales and gated access to content, built with React, Stripe payments and a user-authorization system. Currently under active development.",
+    stack: ["React", "Node.js", "Stripe", "Firebase", "GAE"],
+    wip: true,
   },
 ];
 
@@ -173,12 +264,15 @@ export const experience = [
     period: "Jun 2023 — May 2026",
     mode: "Hybrid · Kraków",
     summary:
-      "AI-powered ads-optimization platform for media buyers, affiliates and agencies. Co-built two products from scratch in a team of 8 engineers + QA, serving clients including Pepsi and Starbucks.",
+      "AI-powered ads-optimization platform for media buyers, affiliates and agencies. Co-built two products from scratch — trackboost.com (AI co-pilot for advertisers) and digital.trackboost.com (analytics & team-management dashboard) — in a team of 8 engineers + QA, serving clients including Pepsi and Starbucks.",
     points: [
-      "Built integrations with 9+ traffic sources & affiliate networks (Facebook, TikTok, MGID, Taboola, Outbrain, Revcontent, Tonic).",
+      "Built an autonomous AI agent that takes an offer + reference and launches a full ad campaign end-to-end — generating images and headlines via OpenAI and pushing creatives live to traffic sources.",
+      "Designed an LLM-based campaign optimization engine that analyzes live performance against affiliate-marketing rules and recommends budget changes, pausing, and new creative variations.",
+      "Built integrations with 9+ traffic sources & affiliate networks (Facebook, TikTok, Instagram, YouTube, MGID, Taboola, Outbrain, Revcontent, Line, Tonic).",
+      "Designed an n8n + Claude Opus content pipeline auto-generating RSOC articles for Tonic at scale; ran in production for months.",
       "Architected the scheduled stats-collection layer — hourly/daily BullMQ jobs across hundreds of campaigns and thousands of ads.",
-      "Built a real-time analytics dashboard over a 70 GB MongoDB store + multiple SQL databases; cut load times from ~30s to near-instant.",
-      "Shipped an AI ad-creative editor and an influencer-management CRM for agencies.",
+      "Built a real-time analytics dashboard over a 70 GB MongoDB store + multiple SQL databases; cut key dashboard load times from ~30s to near-instant.",
+      "Shipped an AI ad-creative editor and an influencer-management system (talent CRM, campaign tracking, reporting) for agencies.",
     ],
   },
   {
@@ -187,11 +281,13 @@ export const experience = [
     period: "2024 — Present",
     mode: "Remote",
     summary:
-      "Designed and shipped websites, booking systems and a Telegram bot across fitness, wellness and education — owning the full cycle from requirements to deployment.",
+      "Designed and shipped websites, booking systems and a Telegram bot for independent clients across fitness, wellness and education — owning the full delivery cycle from requirements and design to deployment and handover.",
     points: [
-      "Booking sites with lead capture & email notifications (React + Node.js).",
+      "Fitness-coach booking site with service signup, lead capture & email notifications (React + Node.js).",
       "Dance-course landing & registration platform (React, Node.js, Astro).",
-      "Telegram bot with full PayPal payment flow + Google services.",
+      "Podiatry-clinic site with appointment booking and contact functionality.",
+      "Telegram bot with full PayPal payment flow + Google services integration.",
+      "Cross-platform mobile app (side project) with React Native and a Node.js backend.",
     ],
   },
   {
@@ -200,7 +296,7 @@ export const experience = [
     period: "2022 — 2025",
     mode: "Slovakia",
     summary:
-      'Thesis: "Integrated Development Environments for Work with Large Language Models." Designed and implemented a RAG pipeline as the core technical contribution.',
+      'Thesis: "Integrated Development Environments for Work with Large Language Models." Designed and implemented a Retrieval-Augmented Generation (RAG) pipeline as the core technical contribution, grounding LLM responses in a custom knowledge base.',
     points: [],
   },
 ];
@@ -209,12 +305,21 @@ export const languages = [
   { name: "Russian", level: "Native" },
   { name: "Ukrainian", level: "Native" },
   { name: "Slovak", level: "C1 · Near-fluent" },
-  { name: "English", level: "B2" },
+  { name: "English", level: "B2 · Upper-Intermediate" },
+];
+
+export const contactMethods = [
+  { label: "EMAIL", value: "mariyapaik3@gmail.com", href: "mailto:mariyapaik3@gmail.com" },
+  { label: "PHONE", value: "+48 732 862 578", href: "tel:+48732862578" },
+  { label: "LINKEDIN", value: "in/mariia-paik", href: "https://linkedin.com/in/mariia-paik" },
+  { label: "GITHUB", value: "github.com/mariiapaik", href: "https://github.com/mariiapaik" },
 ];
 
 export const nav = [
+  { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#freelance", label: "Freelance" },
   { href: "#stack", label: "Tech Stack" },
-  { href: "#experience", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ];

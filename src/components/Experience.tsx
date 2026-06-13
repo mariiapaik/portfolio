@@ -1,5 +1,5 @@
 import { Terminal } from "lucide-react";
-import { coreProject, terminalLog } from "@/lib/data";
+import { coreProject, terminalLog, experience } from "@/lib/data";
 
 export default function Experience() {
   return (
@@ -57,6 +57,33 @@ export default function Experience() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Full timeline */}
+      <div className="timeline">
+        {experience.map((job) => (
+          <div className="tl-item" key={job.company}>
+            <div className="tl-marker" />
+            <div className="tl-content">
+              <div className="tl-head">
+                <h3 className="tl-role">
+                  {job.role}
+                  <span className="tl-company"> · {job.company}</span>
+                </h3>
+                <span className="tl-period">{job.period}</span>
+              </div>
+              <div className="tl-mode">{job.mode}</div>
+              <p className="tl-summary">{job.summary}</p>
+              {job.points.length > 0 && (
+                <ul className="tl-points">
+                  {job.points.map((pt) => (
+                    <li key={pt}>{pt}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

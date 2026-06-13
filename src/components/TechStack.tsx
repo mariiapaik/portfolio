@@ -1,5 +1,6 @@
 import { MousePointer2, Sparkles } from "lucide-react";
 import SkillWeb from "./three/SkillWeb";
+import { skillGroups } from "@/lib/data";
 
 export default function TechStack() {
   return (
@@ -28,6 +29,22 @@ export default function TechStack() {
           <Sparkles size={16} className="stack-hint-icon" />
           <span>CONTAINED SWARM</span>
         </div>
+      </div>
+
+      {/* Categorized skill breakdown */}
+      <div className="skill-groups">
+        {skillGroups.map((g) => (
+          <div className="skill-group glass-card" key={g.cat}>
+            <div className="skill-group-cat">{g.cat}</div>
+            <div className="skill-group-items">
+              {g.items.map((it) => (
+                <span className="skill-tag" key={it}>
+                  {it}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

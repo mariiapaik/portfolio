@@ -1,17 +1,17 @@
 # Portfolio
 
-Личное портфолио на Next.js с современным интерфейсом, анимациями и интерактивными контактными элементами.
+A personal portfolio built with Next.js featuring a modern interface, animations, and interactive contact elements.
 
-## Обзор
+## Overview
 
-Проект представляет собой одностраничное портфолио, включающее:
-- заголовок и краткую презентацию
-- блоки "What I Build", "Client Work", "Case Study", "Projects" и "Tech Stack"
-- контактный CTA с кнопкой "START A PROJECT"
-- 3D-компонент на `three.js` / `@react-three/fiber`
-- адаптивную навигацию и футер
+This project is a single-page portfolio that includes:
+- a hero section with a short introduction
+- sections for "What I Build", "Client Work", "Case Study", "Projects", and "Tech Stack"
+- a contact CTA with a "START A PROJECT" button
+- a 3D component using `three.js` / `@react-three/fiber`
+- responsive navigation and footer
 
-## Технологии
+## Technologies
 
 - Next.js 16 (App Router)
 - React 19
@@ -22,34 +22,34 @@
 - lucide-react
 - ESLint
 
-## Структура проекта
+## Project Structure
 
-- `src/app/` — основной рутинг и глобальные стили
-- `src/components/` — UI-компоненты сайта
-- `src/lib/data.ts` — данные профиля, контактов и списка технологий
-- `public/` — статические файлы и активы
+- `src/app/` — main routing and global styles
+- `src/components/` — UI components for the site
+- `src/lib/data.ts` — profile, contact, and tech stack data
+- `public/` — static assets and files
 
-## Запуск
+## Getting Started
 
 ```bash
 npm install
 npm run dev
 ```
 
-Откройте в браузере: `http://localhost:3000`
+Open your browser at: `http://localhost:3000`
 
-## Сборка
+## Build
 
 ```bash
 npm run build
 npm run start
 ```
 
-## Контакты
+## Contact
 
-Кнопка "START A PROJECT" и ссылки на email открывают Gmail в режиме создания нового письма.
+The "START A PROJECT" button and email links open Gmail compose for a new message.
 
-## Заметки
+## Notes
 
-- Проект использует App Router и статическую генерацию страниц.
-- Контакты хранятся в `src/lib/data.ts`, что позволяет легко менять email, телефон и ссылки.
+- The project uses the App Router and static page generation.
+- Contact information is stored in `src/lib/data.ts`, making it easy to update email, phone, and links.

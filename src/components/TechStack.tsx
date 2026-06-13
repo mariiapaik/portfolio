@@ -1,4 +1,3 @@
-import { MousePointer2, Sparkles } from "lucide-react";
 import SkillWeb from "./three/SkillWeb";
 import { skillGroups } from "@/lib/data";
 
@@ -7,11 +6,10 @@ export default function TechStack() {
     <section className="stack-sec" id="stack">
       <div className="stack-head">
         <span className="stack-pill">Engineering Toolkit</span>
-        <h2 className="stack-title">Neural Architecture &amp; Stack</h2>
+        <h2 className="stack-title">Tools I Use to Ship Products</h2>
         <p className="stack-sub">
-          An organic ecosystem of tools and technologies. Interact with the
-          swarm below to explore the core components of my development
-          environment.
+          A focused stack for building full-stack products, AI automations,
+          dashboards, payment flows and integrations.
         </p>
       </div>
 

@@ -5,7 +5,12 @@ export default function Freelance() {
   return (
     <section className="sec-block" id="freelance">
       <div className="sec-block-head">
-        <h2 className="sec-block-title">Freelance &amp; Client Work</h2>
+        <span className="sec-kicker">Websites, funnels and integrations</span>
+        <h2 className="sec-block-title">Client Work</h2>
+        <p className="sec-intro">
+          Selected projects shipped end-to-end for independent clients, from
+          first structure and UI to backend logic, forms and integrations.
+        </p>
         <div className="sec-block-rule" />
       </div>
 

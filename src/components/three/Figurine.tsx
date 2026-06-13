@@ -183,12 +183,13 @@ export default function Figurine() {
     const PATTERN: Side[] = [
       "right", // 1 hero
       "right", // 2 stats
-      "left", // 3 about
-      "left", // 4 experience
-      "center", // 5 projects
-      "right", // 6 freelance
+      "left", // 3 what I build
+      "left", // 4 client work
+      "right", // 5 case study
+      "center", // 6 projects
       "right", // 7 stack
-      "left", // 8 cta
+      "left", // 8 about
+      "left", // 9 cta
     ];
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>("main > section")

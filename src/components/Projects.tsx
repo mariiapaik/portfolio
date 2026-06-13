@@ -5,7 +5,8 @@ export default function Projects() {
   return (
     <section className="sec-block" id="projects">
       <div className="sec-block-head">
-        <h2 className="sec-block-title">Selected Projects</h2>
+        <span className="sec-kicker">Technical depth</span>
+        <h2 className="sec-block-title">Selected Engineering Projects</h2>
         <div className="sec-block-rule" />
       </div>
 

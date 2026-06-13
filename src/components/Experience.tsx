@@ -5,7 +5,8 @@ export default function Experience() {
   return (
     <section className="sec-block" id="experience">
       <div className="sec-block-head">
-        <h2 className="sec-block-title">Experience Highlights</h2>
+        <span className="sec-kicker">Production SaaS case study</span>
+        <h2 className="sec-block-title">TrackBoost: AI Ads Platform</h2>
         <div className="sec-block-rule" />
       </div>
 
@@ -43,7 +44,7 @@ export default function Experience() {
             <span className="terminal-dot dot-r" />
             <span className="terminal-dot dot-y" />
             <span className="terminal-dot dot-g" />
-            <span className="terminal-name">ai-agent-v1.log</span>
+            <span className="terminal-name">impact-summary.log</span>
           </div>
           <div className="terminal-body">
             {terminalLog.map((l) => (

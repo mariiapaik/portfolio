@@ -240,7 +240,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 80px 32px 0;
+  padding: 80px 140px;
   overflow: hidden;
 }
 .hero-3d {
@@ -284,20 +284,21 @@ body {
 }
 /* Reserve a lane for the figurine by shifting each section's content to the
    opposite side. Side is set per section (must match PATTERN in Figurine.tsx):
-   1 hero R, 2 stats R, 3 about L, 4 experience L, 5 projects CENTER,
-   6 freelance R, 7 stack R, 8 cta L. */
+   1 hero R, 2 stats R, 3 services L, 4 client work L, 5 case study R,
+   6 projects CENTER, 7 stack R, 8 about L, 9 cta L. */
 @media (min-width: 768px) {
   /* Figure on the RIGHT -> push content left. */
   main > section:nth-of-type(1),
   main > section:nth-of-type(2),
-  main > section:nth-of-type(6),
+  main > section:nth-of-type(5),
   main > section:nth-of-type(7) {
     padding-right: var(--lane);
   }
   /* Figure on the LEFT -> push content right. */
   main > section:nth-of-type(3),
   main > section:nth-of-type(4),
-  main > section:nth-of-type(8) {
+  main > section:nth-of-type(8),
+  main > section:nth-of-type(9) {
     padding-left: var(--lane);
   }
   /* Projects: figure centred, cards split into two side columns. */
@@ -399,7 +400,7 @@ body {
 /* ============ STATS BAR ============ */
 .stats-wrap {
   max-width: var(--container-max);
-  margin: -48px auto 0;
+  margin: 0px auto 0;
   padding: 0 32px;
   position: relative;
   z-index: 20;
@@ -447,6 +448,16 @@ body {
 .sec-block-head {
   margin-bottom: 32px;
 }
+.sec-kicker {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
 .sec-block-title {
   font-family: var(--sans);
   font-size: 32px;
@@ -459,6 +470,78 @@ body {
   width: 48px;
   height: 4px;
   background: var(--primary);
+}
+.sec-intro {
+  max-width: 720px;
+  margin: 0 0 14px;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.service-card {
+  padding: 26px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.service-icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 6px;
+}
+.service-title {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin: 0;
+}
+.service-desc {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-dim);
+  margin: 0;
+}
+.service-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.service-list li {
+  position: relative;
+  padding-left: 16px;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--on-surface-variant);
+}
+.service-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.65);
 }
 .exp-grid {
   display: grid;
@@ -1281,6 +1364,7 @@ body {
     height: 400px;
   }
   .proj-grid,
+  .services-grid,
   .skill-groups,
   .contact-methods {
     grid-template-columns: 1fr;

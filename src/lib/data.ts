@@ -8,7 +8,7 @@ export const profile = {
   email: "mariyapaik3@gmail.com",
   phone: "+48 732 862 578",
   github: "https://github.com/mariiapaik",
-  linkedin: "https://linkedin.com/in/mariia-paik",
+  linkedin: "https://www.linkedin.com/in/mariia-paik-287850312/",
   cv: "/Mariia_Paik_CV.pdf",
 };
 
@@ -21,28 +21,46 @@ export const typewriterLines = [
 
 export const heroStats = [
   { n: "3+", l: "YEARS EXPERIENCE" },
-  { n: "200+", l: "USERS SCALED" },
+  { n: "70GB", l: "ANALYTICS DATA HANDLED" },
   { n: "10+", l: "AD-NETWORK INTEGRATIONS" },
 ];
 
 export const coreProject = {
-  badge: "CORE PROJECT",
+  badge: "CASE STUDY",
   title: "TrackBoost",
   desc: "AI-powered ads-optimization platform for media buyers, affiliates and agencies serving clients including Pepsi and Starbucks. Co-built two products from scratch in a team of 8 engineers + QA.",
-  archTitle: "System Architecture",
+  archTitle: "Impact Highlights",
   arch: [
-    "Autonomous AI campaign-launching agent (OpenAI creatives)",
-    "LLM-based campaign optimization & rules engine",
-    "Scheduled stats layer over a 70 GB MongoDB store via BullMQ",
+    "Launched an autonomous campaign agent for creative generation and publishing",
+    "Built optimization workflows for budget, pausing and variation decisions",
+    "Cut key analytics dashboard loads from ~30s to near-instant",
   ],
   chips: ["NODE.JS", "NESTJS", "OPENAI", "CLAUDE", "MONGODB", "AWS"],
 };
 
 export const cta = {
-  title: "Ready to Build Something Real?",
-  sub: "Open to backend or full-stack roles — remote, hybrid, B2B or employment. I reply within 24h.",
-  button: "INITIALIZE CONTACT",
+  title: "Tell Me What You Want to Build",
+  sub: "Send a short message about the product, automation or website you have in mind. I usually reply within 24 hours.",
+  button: "START A PROJECT",
 };
+
+export const services = [
+  {
+    title: "AI Automation & Agents",
+    desc: "LLM-powered workflows that reduce repetitive work: campaign agents, content pipelines, data extraction and internal copilots.",
+    items: ["OpenAI / Claude integrations", "RAG and knowledge search", "n8n and backend automation"],
+  },
+  {
+    title: "Dashboards & Internal Tools",
+    desc: "Operational web apps for teams that need clean data, fast workflows and reliable admin panels.",
+    items: ["Analytics dashboards", "CRM and management tools", "Role-based product flows"],
+  },
+  {
+    title: "Client Websites & Payments",
+    desc: "Conversion-focused websites, booking flows and paid-access systems for small businesses and independent creators.",
+    items: ["Landing pages and service sites", "Signup / booking flows", "Stripe, PayPal and Google integrations"],
+  },
+];
 
 export const techWeb = [
   "Node.js",
@@ -75,31 +93,31 @@ export const aboutBio = [
 ];
 
 export const terminalLog: { ts: string; msg: string; hi?: boolean }[] = [
-  { ts: "[09:41:22]", msg: "INITIALIZING_AGENT: MARIIA_PAIK" },
+  { ts: "[09:41:22]", msg: "CASE_STUDY: TRACKBOOST" },
   {
     ts: "[09:41:23]",
-    msg: "DEPLOYED: Autonomous AI campaign-launching agent (multi-LLM routing)",
+    msg: "BUILT: Autonomous campaign-launching agent",
     hi: true,
   },
   {
     ts: "[09:41:24]",
-    msg: "DEPLOYED: n8n + Claude Opus content pipeline (RSOC at scale)",
+    msg: "AUTOMATED: Claude content pipeline for RSOC campaigns",
   },
   {
     ts: "[09:41:25]",
-    msg: "INTEGRATED: 9+ traffic sources — Facebook, TikTok, MGID, Taboola, Outbrain",
+    msg: "INTEGRATED: 9+ traffic sources and affiliate networks",
     hi: true,
   },
   {
     ts: "[09:41:26]",
-    msg: "SCALED: 70 GB MongoDB store · thousands of ads · BullMQ schedulers",
+    msg: "SCALED: 70 GB MongoDB store and scheduled stats jobs",
   },
   {
     ts: "[09:41:27]",
-    msg: "OPTIMIZED: key dashboard load ~30s → near-instant",
+    msg: "OPTIMIZED: dashboard load ~30s -> near-instant",
     hi: true,
   },
-  { ts: "[09:41:28]", msg: "STATUS: OPEN_TO_WORK · REMOTE / HYBRID" },
+  { ts: "[09:41:28]", msg: "STATUS: AVAILABLE FOR CLIENT PROJECTS" },
 ];
 
 export const aboutFacts: [string, string][] = [
@@ -311,15 +329,15 @@ export const languages = [
 export const contactMethods = [
   { label: "EMAIL", value: "mariyapaik3@gmail.com", href: "mailto:mariyapaik3@gmail.com" },
   { label: "PHONE", value: "+48 732 862 578", href: "tel:+48732862578" },
-  { label: "LINKEDIN", value: "in/mariia-paik", href: "https://linkedin.com/in/mariia-paik" },
+  { label: "LINKEDIN", value: "in/mariia-paik", href: "https://www.linkedin.com/in/mariia-paik-287850312/" },
   { label: "GITHUB", value: "github.com/mariiapaik", href: "https://github.com/mariiapaik" },
 ];
 
 export const nav = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
+  { href: "#services", label: "What I Build" },
+  { href: "#freelance", label: "Client Work" },
+  { href: "#experience", label: "Case Study" },
   { href: "#projects", label: "Projects" },
-  { href: "#freelance", label: "Freelance" },
-  { href: "#stack", label: "Tech Stack" },
+  { href: "#stack", label: "Toolkit" },
   { href: "#contact", label: "Contact" },
 ];

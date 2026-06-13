@@ -6,7 +6,7 @@ export default function Navbar() {
       <nav className="nav">
         <div className="nav-brand">
           <a className="nav-logo" href="#top">
-            MARIIA.DEV
+            PAIK.DEV
           </a>
           <span className="nav-status">
             <span className="nav-status-dot" />

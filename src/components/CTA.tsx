@@ -1,6 +1,9 @@
 import { ArrowUpRight } from "lucide-react";
 import { cta, profile, contactMethods, languages } from "@/lib/data";
 
+const gmailCompose = (email: string) =>
+  `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+
 export default function CTA() {
   return (
     <section className="cta-sec" id="contact">
@@ -36,7 +39,7 @@ export default function CTA() {
             ))}
           </div>
 
-          <a className="cta-btn" href={`mailto:${profile.email}`}>
+          <a className="cta-btn" href={gmailCompose(profile.email)} target="_blank" rel="noreferrer">
             {cta.button}
           </a>
         </div>

@@ -326,8 +326,11 @@ export const languages = [
   { name: "English", level: "B2 · Upper-Intermediate" },
 ];
 
+const gmailCompose = (email: string) =>
+  `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+
 export const contactMethods = [
-  { label: "EMAIL", value: "mariyapaik3@gmail.com", href: "mailto:mariyapaik3@gmail.com" },
+  { label: "EMAIL", value: "mariyapaik3@gmail.com", href: gmailCompose("mariyapaik3@gmail.com") },
   { label: "PHONE", value: "+48 732 862 578", href: "tel:+48732862578" },
   { label: "LINKEDIN", value: "in/mariia-paik", href: "https://www.linkedin.com/in/mariia-paik-287850312/" },
   { label: "GITHUB", value: "github.com/mariiapaik", href: "https://github.com/mariiapaik" },

@@ -8,10 +8,12 @@ import Freelance from "@/components/Freelance";
 import TechStack from "@/components/TechStack";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import Figurine from "@/components/three/Figurine";
 
 export default function Home() {
   return (
     <div className="site">
+      <Figurine />
       <Navbar />
       <main>
         <Hero />

@@ -19,18 +19,6 @@ export default function TechStack() {
         <SkillWeb />
       </div>
 
-      <div className="stack-hints">
-        <div className="stack-hint">
-          <MousePointer2 size={16} className="stack-hint-icon" />
-          <span>SMOOTH PARALLAX</span>
-        </div>
-        <div className="stack-hint-divider" />
-        <div className="stack-hint">
-          <Sparkles size={16} className="stack-hint-icon" />
-          <span>CONTAINED SWARM</span>
-        </div>
-      </div>
-
       {/* Categorized skill breakdown */}
       <div className="skill-groups">
         {skillGroups.map((g) => (

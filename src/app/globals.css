@@ -29,6 +29,9 @@
   --sans: var(--font-sans), "Space Grotesk", sans-serif;
 
   --container-max: 1280px;
+  /* Side lane reserved for the floating figurine; sections shift content away
+     from it. Keep in sync with laneWidth() in Figurine.tsx. */
+  --lane: clamp(200px, 22vw, 320px);
 }
 
 * {
@@ -255,6 +258,53 @@ body {
 .knot-canvas {
   width: 100%;
   height: 100%;
+}
+/* Floating 3D figurine: follows cursor + drifts down on scroll. */
+.figurine {
+  position: fixed;
+  /* Vertically centred; JS drives `left` and the width/height to keep the
+     figurine in the side gutter next to the content column. */
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 280px;
+  height: 400px;
+  /* Above the section backgrounds (parked in the gutter, so it doesn't cover
+     text), but below the navbar. */
+  z-index: 40;
+  pointer-events: none;
+  overflow: visible;
+  opacity: 0;
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.45));
+  transition: opacity 0.9s ease;
+  will-change: left;
+}
+.figurine.figurine-ready {
+  opacity: 1;
+}
+/* Reserve a lane for the figurine by shifting each section's content to the
+   opposite side. Side is set per section (must match PATTERN in Figurine.tsx):
+   1 hero R, 2 stats R, 3 about L, 4 experience L, 5 projects CENTER,
+   6 freelance R, 7 stack R, 8 cta L. */
+@media (min-width: 768px) {
+  /* Figure on the RIGHT -> push content left. */
+  main > section:nth-of-type(1),
+  main > section:nth-of-type(2),
+  main > section:nth-of-type(6),
+  main > section:nth-of-type(7) {
+    padding-right: var(--lane);
+  }
+  /* Figure on the LEFT -> push content right. */
+  main > section:nth-of-type(3),
+  main > section:nth-of-type(4),
+  main > section:nth-of-type(8) {
+    padding-left: var(--lane);
+  }
+  /* Projects: figure centred, cards split into two side columns. */
+  #projects .proj-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: calc(var(--lane) + 32px);
+  }
 }
 .hero-inner {
   position: relative;
@@ -614,7 +664,7 @@ body {
 }
 .stack-web {
   width: 100%;
-  height: 600px;
+  height: 520px;
   position: relative;
   z-index: 10;
 }
@@ -623,6 +673,11 @@ body {
   height: 100%;
   cursor: move;
   overflow: hidden;
+  touch-action: none;
+  user-select: none;
+}
+#skill-web-container.is-dragging {
+  cursor: grabbing;
 }
 .stack-hints {
   position: absolute;
@@ -1223,7 +1278,7 @@ body {
     padding-right: 24px;
   }
   .stack-web {
-    height: 460px;
+    height: 400px;
   }
   .proj-grid,
   .skill-groups,

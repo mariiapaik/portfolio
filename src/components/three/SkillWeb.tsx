@@ -4,14 +4,6 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { skillGroups } from "@/lib/data";
 
-/**
- * Grouped skill "spider web": every skill (from skillGroups) is a glowing label
- * spread through a stable ellipsoid. Nodes are tied together with thin lines
- * (hub -> skill spokes, a ring through each cluster, cross-links, and radial
- * lines to the centre) so the whole volume reads as a filled web. Labels are
- * sized to their text so names are never clipped. Nodes gently wobble in place
- * rather than flying apart, so the grouping holds.
- */
 export default function SkillWeb() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -30,7 +22,7 @@ export default function SkillWeb() {
     try {
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     } catch {
-      return; // No WebGL — degrade gracefully.
+      return;
     }
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -41,7 +33,6 @@ export default function SkillWeb() {
 
     const disposables: { dispose: () => void }[] = [];
 
-    // Build a glowing text label sprite sized to its content (no clipping).
     const makeLabel = (text: string, worldHeight: number, color: string) => {
       const fontPx = 78;
       const font = `Bold ${fontPx}px 'Space Grotesk', sans-serif`;
@@ -54,7 +45,7 @@ export default function SkillWeb() {
       const padY = 36;
       canvas.width = w + padX * 2;
       canvas.height = fontPx + padY * 2;
-      // Re-apply font/style (resizing the canvas resets the 2D context).
+
       ctx.font = font;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -92,7 +83,6 @@ export default function SkillWeb() {
       return node;
     };
 
-    // --- thin web lines ---
     const lineMat = new THREE.LineBasicMaterial({
       color: 0x00f0ff,
       transparent: true,
@@ -112,8 +102,6 @@ export default function SkillWeb() {
     const connect = (n1: Node, n2: Node) =>
       addLink(n1.sprite.position, n2.sprite.position);
 
-    // Lay clusters throughout an ellipsoid with matching X/Z radii, so the web
-    // keeps the same footprint while it rotates and the middle stays populated.
     const WEB_RX = 32;
     const WEB_RY = 19;
     const WEB_RZ = 32;
@@ -186,22 +174,18 @@ export default function SkillWeb() {
         return node;
       });
 
-      // Web within the cluster: hub -> skill spokes + a ring through skills.
       items.forEach((it, ii) => {
         connect(hub, it);
         connect(it, items[(ii + 1) % items.length]);
       });
     });
 
-    // Web between clusters: a ring through the hubs + radial lines to centre.
     const ORIGIN = new THREE.Vector3(0, 0, 0);
     hubs.forEach((hub, i) => {
       connect(hub, hubs[(i + 1) % hubs.length]);
       addLink(hub.sprite.position, ORIGIN);
     });
 
-    // Short cross-links fill the inner volume without turning the web into a
-    // dense unreadable net.
     const linked = new Set<string>();
     allNodes.forEach((node, i) => {
       const nearest = allNodes
@@ -227,7 +211,6 @@ export default function SkillWeb() {
     const baseSize = new THREE.Vector3();
     baseBox.getSize(baseSize);
 
-    // --- interaction: drag rotates the whole web; hover adds soft parallax ---
     let targetX = 0;
     let targetY = 0;
     let curX = 0;
@@ -293,7 +276,6 @@ export default function SkillWeb() {
       raf = requestAnimationFrame(animate);
       const t = Date.now() * 0.0006;
 
-      // Gentle wobble around each node's anchor (keeps clusters together).
       const amp = 0.7;
       for (const n of nodes) {
         const ph = t + n.phase;
@@ -304,7 +286,6 @@ export default function SkillWeb() {
         );
       }
 
-      // Sync line endpoints to the (moved) node positions.
       for (const L of links) {
         const p = L.line.geometry.attributes.position.array as Float32Array;
         p[0] = L.a.x;

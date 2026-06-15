@@ -13,10 +13,10 @@ export const profile = {
 };
 
 export const typewriterLines = [
+  "hello — let's build something",
   "Backend-Focused Full-Stack Engineer",
   "Building Autonomous AI Agents",
   "NestJS · Multi-LLM Routing · AWS",
-  "Architecting Resilient Backend Systems",
 ];
 
 export const heroStats = [
@@ -39,26 +39,38 @@ export const coreProject = {
 };
 
 export const cta = {
-  title: "Tell Me What You Want to Build",
-  sub: "Send a short message about the product, automation or website you have in mind. I usually reply within 24 hours.",
-  button: "START A PROJECT",
+  title: "So… what are we building?",
+  sub: "Drop me a line about the product, automation or site you have in mind — I reply faster than my CI (usually within 24h).",
+  button: "Hire me",
 };
 
-export const services = [
+export const services: {
+  title: string;
+  plain: string;
+  desc: string;
+  items: string[];
+  visual: "agent" | "dashboard" | "website";
+}[] = [
   {
     title: "AI Automation & Agents",
+    plain: "Software that does your repetitive work on its own.",
     desc: "LLM-powered workflows that reduce repetitive work: campaign agents, content pipelines, data extraction and internal copilots.",
     items: ["OpenAI / Claude integrations", "RAG and knowledge search", "n8n and backend automation"],
+    visual: "agent",
   },
   {
     title: "Dashboards & Internal Tools",
+    plain: "Apps that turn messy data into clear decisions.",
     desc: "Operational web apps for teams that need clean data, fast workflows and reliable admin panels.",
     items: ["Analytics dashboards", "CRM and management tools", "Role-based product flows"],
+    visual: "dashboard",
   },
   {
     title: "Client Websites & Payments",
+    plain: "Sites that turn visitors into paying customers.",
     desc: "Conversion-focused websites, booking flows and paid-access systems for small businesses and independent creators.",
     items: ["Landing pages and service sites", "Signup / booking flows", "Stripe, PayPal and Google integrations"],
+    visual: "website",
   },
 ];
 
@@ -130,7 +142,6 @@ export const aboutFacts: [string, string][] = [
   ["LANGUAGES", "RU · UA · SK (C1) · EN (B2)"],
 ];
 
-/** Technical skills grouped by category — straight from the resume. */
 export const skillGroups: { cat: string; items: string[] }[] = [
   { cat: "LANGUAGES", items: ["JavaScript", "TypeScript", "Python"] },
   {
@@ -192,85 +203,109 @@ export const skillGroups: { cat: string; items: string[] }[] = [
   },
 ];
 
-export const projects = [
+export const projects: {
+  num: string;
+  title: string;
+  desc: string;
+  flow: string[];
+  chips: string[];
+}[] = [
   {
     num: "001",
     title: "Autonomous Ad Agent",
     desc: "End-to-end campaign launcher for affiliate marketers: takes an offer + reference, generates images and headlines via OpenAI, assembles creatives, and pushes them live to traffic sources. Replaced hours of manual creative production per buyer.",
+    flow: ["Offer", "OpenAI", "Agent", "Live"],
     chips: ["OpenAI", "Node.js", "Agent", "BullMQ"],
   },
   {
     num: "002",
     title: "LLM Optimization Engine",
     desc: "Campaign optimization engine that analyzes live performance against affiliate-marketing rules and recommends concrete actions — budget adjustments, pausing underperforming creatives, and generating new variations.",
+    flow: ["Stats", "Rules", "LLM", "Actions"],
     chips: ["LLM", "NestJS", "Rules Engine"],
   },
   {
     num: "003",
     title: "Claude Content Pipeline",
     desc: "n8n + Claude Opus pipeline auto-generating RSOC articles for Tonic at scale. Ran in production for several months, producing multiple campaigns per day with zero manual writing.",
+    flow: ["n8n", "Claude", "Articles", "Tonic"],
     chips: ["Claude API", "n8n", "Automation"],
   },
   {
     num: "004",
     title: "Real-time Analytics Dashboard",
     desc: "Live dashboard with charts aggregating a 70 GB MongoDB store and multiple SQL databases across all integrated traffic sources and campaigns. Cut key dashboard load times from ~30s to near-instant.",
+    flow: ["70GB Mongo", "Aggregate", "Charts"],
     chips: ["MongoDB", "Redis", "Charts", "Node.js"],
   },
   {
     num: "005",
     title: "AI Creative Editor & CRM",
     desc: "In-app AI creative editor to generate and refine ad images and copy, removing dependency on external design tools — plus an influencer-management system for agencies with talent CRM, campaign tracking and reporting.",
+    flow: ["Prompt", "OpenAI", "Editor", "CRM"],
     chips: ["OpenAI", "React", "NestJS"],
   },
   {
     num: "006",
     title: "RAG Pipeline (BSc Thesis)",
     desc: "Retrieval-augmented generation over a custom knowledge base — vector-search retrieval combined with LLM generation, built into an IDE for working with LLMs. Core technical contribution of the thesis.",
+    flow: ["Query", "Vector DB", "LLM", "Answer"],
     chips: ["Python", "RAG", "Vector DB", "LLM"],
   },
 ];
 
-/** Freelance / client work from the Upwork portfolio. */
 export const freelance: {
   title: string;
   role: string;
+  tagline: string;
   desc: string;
   stack: string[];
   links?: { label: string; href: string }[];
+  image?: string;
+  icon?: "footprints" | "graduation" | "lock";
   wip?: boolean;
 }[] = [
   {
     title: "Fitness Coach Website",
     role: "Full site development",
+    tagline: "High-converting site for a personal fitness brand.",
     desc: "Modern, high-converting website for a fitness coach — full-cycle UI/UX, responsive frontend, backend & integrations, contact / lead-generation forms and SEO. A clean, engaging presence supporting the coach's personal brand and growth.",
     stack: ["React", "Node.js", "UI/UX", "Responsive", "SEO"],
     links: [{ label: "stefit.sk", href: "https://stefit.sk" }],
+    image: "/previews/stefit.png",
   },
   {
     title: "Dance Course Landing",
     role: "Full-Stack · End-to-End",
+    tagline: "Landing + signup funnel for a dance course.",
     desc: "Conversion-optimized landing page for a dance course — clear course presentation, emotional engagement and a simple flow from first visit to registration, with a data-collecting form wired to backend storage.",
     stack: ["React", "API Integration", "Web Design"],
     links: [{ label: "thesdds.com", href: "https://thesdds.com" }],
+    image: "/previews/thesdds.png",
   },
   {
     title: "Podiatry / Beauty Website",
     role: "Full-Stack · End-to-End",
+    tagline: "Service site that builds trust and books clients.",
     desc: "Modern website for a podiatry / beauty business focused on clear service presentation and building client trust — responsive frontend, organized service content and integrated contact / lead-generation forms.",
     stack: ["React", "UI/UX", "API Integration", "SEO"],
+    image: "/previews/podo.png",
   },
   {
     title: "Course Signup Page",
     role: "Full-Stack · End-to-End",
+    tagline: "Fast signup page built to convert.",
     desc: "Fast, visually appealing signup page that makes registration effortless — an effective tool for promoting the client's course and managing registrations.",
     stack: ["React", "API Integration", "Lead Gen"],
+    image: "/previews/reserve.png",
   },
   {
     title: "Sales & Content Platform",
     role: "Full-Stack · End-to-End",
+    tagline: "Gated content + Stripe payments platform.",
     desc: "Platform for managing sales and gated access to content, built with React, Stripe payments and a user-authorization system. Currently under active development.",
     stack: ["React", "Node.js", "Stripe", "Firebase", "GAE"],
+    icon: "lock",
     wip: true,
   },
 ];
@@ -339,7 +374,7 @@ export const contactMethods = [
 export const nav = [
   { href: "#services", label: "What I Build" },
   { href: "#freelance", label: "Client Work" },
-  { href: "#experience", label: "Case Study" },
+  { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
   { href: "#stack", label: "Toolkit" },
   { href: "#contact", label: "Contact" },

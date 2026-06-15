@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="hero-inner">
         <div className="hero-eyebrow">
           <span className="hero-eyebrow-dot" />
-          AVAILABLE FOR CLIENT PROJECTS
+          STATUS: CAFFEINATED &amp; AVAILABLE
         </div>
         <h1 className="hero-name">{profile.name}</h1>
         <div className="hero-type">
@@ -21,10 +21,10 @@ export default function Hero() {
         </div>
         <div className="hero-btns">
           <a className="btn-main" href="#experience">
-            VIEW CASE STUDY
+            See what I built
           </a>
           <a className="btn-ghost" href="#contact">
-            START A PROJECT
+            Hire me
           </a>
         </div>
       </div>

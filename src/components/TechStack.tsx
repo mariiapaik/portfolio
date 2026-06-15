@@ -17,7 +17,6 @@ export default function TechStack() {
         <SkillWeb />
       </div>
 
-      {/* Categorized skill breakdown */}
       <div className="skill-groups">
         {skillGroups.map((g) => (
           <div className="skill-group glass-card" key={g.cat}>

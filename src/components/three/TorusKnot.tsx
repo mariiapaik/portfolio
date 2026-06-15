@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 type Props = {
-  /** "hero" = large faint knot, "ornament" = small bright knot */
+
   variant?: "hero" | "ornament";
 };
 
@@ -26,15 +26,14 @@ export default function TorusKnot({ variant = "hero" }: Props) {
       0.1,
       1000
     );
-    // Pull the camera back so the knot sits with padding inside the frame
-    // and never clips its container as it rotates.
+
     camera.position.z = isHero ? 6 : 6.8;
 
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     } catch {
-      // No WebGL context available — degrade gracefully (no 3D ornament).
+
       return;
     }
     renderer.setSize(width, height);
@@ -60,9 +59,6 @@ export default function TorusKnot({ variant = "hero" }: Props) {
     scene.add(pointLight);
     scene.add(new THREE.AmbientLight(0xffffff, isHero ? 0.1 : 0.2));
 
-    // Autonomous slow, slightly chaotic rotation — no cursor interaction.
-    // Different per-axis rates + gentle drifting wobble keep it from looking
-    // like a clean mechanical spin.
     const base = isHero ? 0.0009 : 0.0011;
     let raf = 0;
     const animate = () => {

@@ -11,7 +11,7 @@ export default function Experience() {
       </div>
 
       <div className="exp-grid">
-        {/* Core project card */}
+
         <div className="glass-card exp-card">
           <span className="exp-badge">{coreProject.badge}</span>
           <div>
@@ -38,7 +38,6 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* Terminal log card */}
         <div className="glass-card terminal">
           <div className="terminal-bar">
             <span className="terminal-dot dot-r" />
@@ -60,7 +59,6 @@ export default function Experience() {
         </div>
       </div>
 
-      {/* Full timeline */}
       <div className="timeline">
         {experience.map((job) => (
           <div className="tl-item" key={job.company}>

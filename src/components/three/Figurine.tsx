@@ -5,29 +5,13 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
-/**
- * Floating 3D figurine that:
- *  - turns its HEAD toward the cursor (the body stays put),
- *  - blinks from time to time, and
- *  - smoothly drifts down the viewport as the page is scrolled.
- *
- * The model is a rigged Meshy export. We never play its baked animation clip
- * (so the body rests in its standing bind pose); instead we rotate only the
- * "Head" bone toward the pointer. The rig has no eye morphs, so the blink is
- * done by swapping the material to a "closed eyes" copy of the texture
- * (painted at runtime) for a fraction of a second.
- */
-
-// Flip these if the head turns the wrong way.
 const YAW_SIGN = 1;
 const PITCH_SIGN = 1;
-const MAX_YAW = 0.7; // rad — max left/right head turn
-const MAX_PITCH = 0.45; // rad — max up/down head turn
-// Virtual distance (px) from the head to the cursor plane. Smaller = the head
-// reacts more sharply / reaches its max angle sooner.
+const MAX_YAW = 0.7;
+const MAX_PITCH = 0.45;
+
 const GAZE_DEPTH = 1400;
-// Eyelid closes from the top of the eye downward. Flip if it looks like the
-// lid rises from the bottom instead.
+
 const LID_FROM_TOP = true;
 
 export default function Figurine() {
@@ -48,16 +32,19 @@ export default function Figurine() {
     const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
     camera.position.set(0, 0, 3.4);
 
+    const markNoFigurine = () => document.body.classList.add("no-figurine");
+
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     } catch {
-      return; // No WebGL — degrade gracefully.
+      markNoFigurine();
+      return;
     }
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    // Lower = darker overall. Main brightness knob for the figurine.
+
     renderer.toneMappingExposure = 0.5;
     container.appendChild(renderer.domElement);
 
@@ -73,13 +60,11 @@ export default function Figurine() {
     scene.add(rim);
     scene.add(new THREE.HemisphereLight(0xffffff, 0x202830, 0.45));
 
-    // pivot only carries the idle bob — NOT the gaze rotation.
     const pivot = new THREE.Group();
     scene.add(pivot);
 
     let loaded = false;
 
-    // Head-bone gaze.
     let headBone: THREE.Bone | null = null;
     let neckBone: THREE.Bone | null = null;
     const headRest = new THREE.Quaternion();
@@ -92,7 +77,6 @@ export default function Figurine() {
     let curYaw = 0;
     let curPitch = 0;
 
-    // Eye-blink material swap. lidFrames[0] = half-closed, [1] = fully closed.
     let eyeMaterial: THREE.MeshStandardMaterial | null = null;
     let openMap: THREE.Texture | null = null;
     let lidFrames: THREE.Texture[] = [];
@@ -109,7 +93,7 @@ export default function Figurine() {
         box.getSize(size);
         box.getCenter(center);
         root.position.sub(center);
-        // Leave headroom so the crown isn't clipped when it bobs / looks up.
+
         root.scale.setScalar(1.65 / (size.y || 1));
 
         root.traverse((obj) => {
@@ -134,8 +118,6 @@ export default function Figurine() {
           }
         });
 
-        // Derive the head's local rotation axes from its marker children
-        // ("headfront" = facing direction, "head_end" = crown/up).
         if (headBone) {
           headRest.copy((headBone as THREE.Bone).quaternion);
           const h = headBone as THREE.Bone;
@@ -160,10 +142,12 @@ export default function Figurine() {
         container.classList.add("figurine-ready");
       },
       undefined,
-      (err) => console.error("Figurine failed to load", err)
+      (err) => {
+        console.error("Figurine failed to load", err);
+        markNoFigurine();
+      }
     );
 
-    // --- Cursor (raw viewport pixel position) ---
     const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const onPointerMove = (e: PointerEvent) => {
       pointer.x = e.clientX;
@@ -171,48 +155,36 @@ export default function Figurine() {
     };
     window.addEventListener("pointermove", onPointerMove);
 
-    // --- Horizontal travel: stand in the side gutter next to the content ---
-    // The content column is centred (max 1280px); the figurine lives in the
-    // empty gutter to one side and alternates sides per section, so it never
-    // overlaps the content while parked (only while gliding across between
-    // sections).
     type Side = "right" | "left" | "center";
-    // Explicit side per section (index = section order). Grouped so the
-    // figurine switches sides less often. Keep in sync with the per-section
-    // lane padding in globals.css.
+
     const PATTERN: Side[] = [
-      "right", // 1 hero
-      "right", // 2 stats
-      "left", // 3 what I build
-      "left", // 4 client work
-      "right", // 5 case study
-      "center", // 6 projects
-      "right", // 7 stack
-      "left", // 8 about
-      "left", // 9 cta
+      "right",
+      "right",
+      "left",
+      "left",
+      "right",
+      "center",
+      "right",
+      "left",
+      "left",
     ];
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>("main > section")
     );
     const sideForSection = (i: number): Side => PATTERN[i] ?? "right";
 
-    // Below this width there are no side lanes; the figurine becomes a small
-    // mascot pinned to the bottom-right corner instead.
     const isMobile = () => window.innerWidth < 768;
 
-    // Width of the per-section lane reserved for the figurine. Must match the
-    // `--lane` CSS var that shifts each section's content to the other side.
     const laneWidth = () =>
       Math.min(320, Math.max(200, window.innerWidth * 0.22));
 
-    // Size & anchor the figurine, then resize the renderer to match.
     const layout = () => {
       if (isMobile()) {
         width = 116;
         height = 164;
         container.style.width = `${width}px`;
         container.style.height = `${height}px`;
-        // Pin to the bottom-right corner.
+
         container.style.top = "auto";
         container.style.bottom = "12px";
         container.style.right = "12px";
@@ -223,7 +195,7 @@ export default function Figurine() {
         height = Math.round(width * 1.42);
         container.style.width = `${width}px`;
         container.style.height = `${height}px`;
-        // Vertically centred; `left` is driven each frame in animate().
+
         container.style.top = "50%";
         container.style.bottom = "auto";
         container.style.right = "auto";
@@ -234,7 +206,6 @@ export default function Figurine() {
       camera.updateProjectionMatrix();
     };
 
-    // X (px) placing the figurine in its left / right lane or screen centre.
     const anchorX = (side: Side) => {
       if (side === "center") return (window.innerWidth - width) / 2;
       const inset = Math.max(8, (laneWidth() - width) / 2);
@@ -265,11 +236,8 @@ export default function Figurine() {
 
     let curX = anchorX(targetSide);
 
-    // --- Blink scheduling ---
-    // A blink steps through frames so the lid visibly lowers and lifts:
-    // half-closed -> fully closed (hold) -> half-closed -> open.
     let nextBlinkAt = performance.now() + 1200;
-    let seqIdx = -1; // -1 = eyes open / idle
+    let seqIdx = -1;
     let phaseEnd = 0;
     let burst = 0;
     type Step = { map: THREE.Texture; dur: number };
@@ -300,8 +268,7 @@ export default function Figurine() {
       const t = now * 0.001;
 
       if (loaded) {
-        // Head gaze: aim the head at the cursor based on where the figurine
-        // actually sits on screen (it lives in the top area of its canvas).
+
         const rect = renderer.domElement.getBoundingClientRect();
         const anchorX = rect.left + rect.width * 0.5;
         const anchorY = rect.top + rect.height * 0.28;
@@ -322,7 +289,7 @@ export default function Figurine() {
           headBone.quaternion.copy(qTmp);
         }
         if (neckBone) {
-          // The neck follows at ~35% for a more natural turn.
+
           qYaw.setFromAxisAngle(upAxis, curYaw * 0.35);
           qPitch.setFromAxisAngle(rightAxis, curPitch * 0.35);
           qTmp.copy(neckRest).multiply(qYaw).multiply(qPitch);
@@ -331,7 +298,6 @@ export default function Figurine() {
 
         pivot.position.y = reduceMotion ? 0 : Math.sin(t * 1.1) * 0.05;
 
-        // Blink: advance through the lid-lowering sequence.
         if (!reduceMotion && lidFrames.length && openMap) {
           if (seqIdx < 0) {
             if (now >= nextBlinkAt) {
@@ -362,8 +328,6 @@ export default function Figurine() {
         renderer.render(scene, camera);
       }
 
-      // On desktop, glide horizontally toward the active section's lane.
-      // On mobile the figurine stays pinned in its corner (set in layout()).
       if (!isMobile()) {
         const targetX = anchorX(targetSide);
         curX = lerp(curX, targetX, reduceMotion ? 1 : 1 - Math.pow(0.03, dt));
@@ -424,12 +388,6 @@ type EyeAnalysis = {
   src: THREE.Texture;
 };
 
-/**
- * Locates the eyes on the figurine texture (saturated-blue iris islands on the
- * fragmented Meshy UV atlas) and records, for each one, a padded eyelid box and
- * the surrounding skin colour. Returns the original pixels so lid frames can be
- * painted on top without re-decoding the image.
- */
 function analyzeEyes(src: THREE.Texture): EyeAnalysis | null {
   const image = src.image as { width?: number; height?: number };
   const w = image.width ?? 0;
@@ -493,7 +451,7 @@ function analyzeEyes(src: THREE.Texture): EyeAnalysis | null {
 
     const bw = maxX - minX + 1;
     const bh = maxY - minY + 1;
-    // Pad more vertically so a fully descended lid clearly covers the eye.
+
     const padX = Math.round(bw * 0.45);
     const padTop = Math.round(bh * 0.85);
     const padBottom = Math.round(bh * 0.45);
@@ -529,21 +487,16 @@ function analyzeEyes(src: THREE.Texture): EyeAnalysis | null {
   return { base: d, w, h, eyes, src };
 }
 
-/**
- * Paints a single blink frame: for each eye the skin-coloured lid is filled from
- * the top of the eyelid box down by `coverage` (0 = open, 1 = fully closed),
- * with a dark eyelash line drawn along the lid's leading edge.
- */
 function buildLidTexture(a: EyeAnalysis, coverage: number): THREE.Texture {
   const { w, h, base, src } = a;
-  const d = new Uint8ClampedArray(base); // start from the untouched texture
+  const d = new Uint8ClampedArray(base);
   const idx = (p: number) => p * 4;
   const isBlack = (i: number) =>
     base[i] < 16 && base[i + 1] < 16 && base[i + 2] < 16;
 
   for (const e of a.eyes) {
     const boxH = e.y1 - e.y0;
-    // Leading edge of the descending (or rising) lid.
+
     const edge = LID_FROM_TOP
       ? Math.round(e.y0 + boxH * coverage)
       : Math.round(e.y1 - boxH * coverage);
@@ -560,7 +513,6 @@ function buildLidTexture(a: EyeAnalysis, coverage: number): THREE.Texture {
       }
     }
 
-    // Eyelash line along the lid edge.
     const bw = e.maxX - e.minX + 1;
     const lh = Math.max(2, Math.round((e.maxY - e.minY + 1) * 0.18));
     const lx0 = e.minX - Math.round(bw * 0.15);

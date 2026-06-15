@@ -37,9 +37,11 @@ export default function Typewriter({ lines }: { lines: string[] }) {
   }, [lines]);
 
   return (
-    <>
+    <span className="tw-line">
       {text}
-      <span style={{ animation: "blink 1s steps(1) infinite" }}>_</span>
-    </>
+      <span className="tw-caret" style={{ animation: "blink 1s steps(1) infinite" }}>
+        _
+      </span>
+    </span>
   );
 }
